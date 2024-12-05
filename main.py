@@ -61,7 +61,7 @@ for user_id in user_data:
     weather_content = generate_advice_with_gpt("weather", weather, gpt_version, user_name)
     email_body += format_email(weather_content) + "\n\n"
 
-    # Part 4: 今天的待办事项
+    # Part 4: 今��的待办事项
     tasks_content = generate_advice_with_gpt(
         "tasks", {"today_tasks": today_tasks, "daily_routine": daily_routine},
         gpt_version, user_name
@@ -70,7 +70,7 @@ for user_id in user_data:
 
     # 根据 DISPLAY_WAY 发送邮件或更新 Notion 页面
     if display_way == "email":
-        send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"])
+        send_email(email_body, email_receiver, email_title)
     elif display_way == "NOTION":
         notion_client = Client(auth=user_notion_token)
         email_body = html2text.html2text(email_body)

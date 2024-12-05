@@ -84,8 +84,8 @@ for user_id in user_data:
         # )
         # print("Inserted structured content into Notion page.")
         notion_client = Client(auth=user_notion_token)
-        email_body = html2text.html2text(email_body)
-        notion_blocks = markdown_to_plain_text(email_body)
+        notion_blocks = html2text.html2text(email_body)
+        # notion_blocks = markdown_to_plain_text(notion_blocks)
         try:
             # 使用 append blocks 向页面添加内容
             response = notion_client.blocks.children.append(

@@ -72,7 +72,7 @@ RiseUp 是一款集成AI技术的个人生产力提升工具，旨在帮助用�
    程序将按照设定的时间自动运行，您也可以手动触发运行。在 Actions -> Daily Report -> Run Workflow 页面中点击运行。
 
 ### 贡献
-该项目部分重构了[text](https://github.com/Zippland/LifeSync-AI),欢迎各种形式的贡献。要贡献，请：
+该项目部分重构了[这个项目](https://github.com/Zippland/LifeSync-AI),非常感谢这个作者！并且我欢迎各种形式的贡献。要贡献，请：
 - Fork仓库。
 - 创建功能分支。
 - 如果您添加了新功能，请确保添加相关测试。

@@ -3,7 +3,6 @@ from src.send_information.format_email import format_email
 from src.get_information.task_from_notion import fetch_tasks_from_notion
 from src.send_information.email_notifier import send_email
 from src.send_information.m2n import markdown_to_notion_blocks
-from src.send_information.m2n import markdown_to_plain_text
 from src.ai_generating.zhipuai_advice_generator import generate_advice_with_gpt
 from src.get_information.get_wheather import get_weather
 from datetime import datetime
@@ -73,40 +72,14 @@ for user_id in user_data:
     if display_way == "email":
         send_email(email_body, user_data[user_id]["EMAIL_RECEIVER"], user_data[user_id]["EMAIL_TITLE"])
     elif display_way == "NOTION":
-        # notion_client = Client(auth=user_notion_token)
-        # # 转换 Markdown 为 Notion 块格式
-        # email_body = html2text.html2text(email_body)
-        # notion_blocks = markdown_to_notion_blocks(email_body)
-        # # 插入到 Notion 页面
-        # response = notion_client.blocks.children.append(
-        #     block_id=display_page_id,
-        #     children=notion_blocks
-        # )
-        # print("Inserted structured content into Notion page.")
         notion_client = Client(auth=user_notion_token)
-        notion_blocks = html2text.html2text(email_body)
-        # notion_blocks = markdown_to_plain_text(notion_blocks)
-        try:
-            # 使用 append blocks 向页面添加内容
-            response = notion_client.blocks.children.append(
-                block_id=display_page_id,
-                children=[
-                    {
-                        "object": "block",
-                        "type": "paragraph",
-                        "paragraph": {
-                            "rich_text": [  # 修复：显式定义 rich_text
-                                {
-                                    "type": "text",
-                                    "text": {
-                                        "content": notion_blocks  # 插入的文字内容
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                ]
-            )
-            print("Content added successfully to Notion page:", response)
-        except Exception as e:
-            print("Failed to add content to Notion page:", e)
+        email_body = html2text.html2text(email_body)
+        # 将生成的 Markdown 转换为 Notion 格式
+        notion_blocks = markdown_to_notion_blocks(email_body)
+
+        # 插入到 Notion 页面
+        response = notion_client.blocks.children.append(
+            block_id=display_page_id,
+            children=notion_blocks
+        )
+        

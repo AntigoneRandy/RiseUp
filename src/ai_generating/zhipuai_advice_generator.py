@@ -10,7 +10,7 @@ def generate_advice_with_gpt(advice_part, data, gpt_version,user_name):
         # Define prompts based on advice_part
         prompts = {
             "gratitude": (
-                "请生成一个以<h2>开头的段落，内容应包含感恩提醒并根据昨日完成的记录事件对我进行鼓励。"
+                "请生成一个以<h2>开头的段落，标题中要有表情，内容应包含感恩提醒并根据昨日完成的记录事件对我进行鼓励。"
                 "提醒我对生活中值得感激的事物心怀感恩，重点突出感恩，并以积极和温暖的语气进行表达：\n"
                 "1. 根据我的基本信息，提到生活中的具体美好事物。\n"
                 "2. 从昨日的记录中提取完成的事情，并鼓励我继续保持。\n\n"

@@ -1,12 +1,14 @@
 import re
 from zhipuai import ZhipuAI
 from config import OPENAI_API_KEY
+import openai
 
-def generate_advice_with_gpt(advice_part, data, gpt_version,user_name):
+
+def generate_advice_with_gpt(advice_part, data, gpt_version, user_name):
     print("\nGenerating advice with GPT...")
     try:
-        client = ZhipuAI(api_key=OPENAI_API_KEY)  # 使用智谱AI客户端
-        
+        # client = ZhipuAI(api_key=OPENAI_API_KEY)  # 使用智谱AI客户端
+
         # Define prompts based on advice_part
         prompts = {
             "gratitude": (
@@ -46,8 +48,9 @@ def generate_advice_with_gpt(advice_part, data, gpt_version,user_name):
         }
 
         prompt = prompts.get(advice_part, "")
-        
-        response = client.chat.completions.create(
+
+        openai.api_key = OPENAI_API_KEY
+        response = openai.ChatCompletion.create(
             model=gpt_version,
             messages=[
                 # {"role": "system", "content": "你是我的日程秘书，请根据以下指令生成内容。请使用HTML格式，结构清晰，不要问候语或多余信息,注意！使用中文返回。"},
@@ -57,16 +60,17 @@ def generate_advice_with_gpt(advice_part, data, gpt_version,user_name):
             max_tokens=4096,
             temperature=0.3
         )
-        
+
         print("Generated response.")
         if response.choices and len(response.choices) > 0:
             message_content = response.choices[0].message.content
-            cleaned_message = re.sub(r'<body>|</body>|```html?|```', '', message_content)
+            cleaned_message = re.sub(
+                r'<body>|</body>|```html?|```', '', message_content)
             print(cleaned_message)
             return cleaned_message
         else:
             return "No advice generated."
-    
+
     except Exception as e:
         print(f"Error generating advice: {e}")
         return "Error occurred during generation."

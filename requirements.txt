@@ -31,3 +31,4 @@ typing_extensions==4.12.2
 urllib3==2.2.3
 zhipuai==2.1.5.20241204
 zipp==3.20.2
+openai==0.28
